@@ -504,12 +504,32 @@ void guardarMatriz(string **punteromatriz, int f, int c) {
 	string nombreArchivo;
     string nombreJSON;
     
-    cout << "Digite el nombre del archivo con el que quisiera guardarlo: ";
-    cin.ignore();
-    getline(cin, nombreArchivo);
+    bool archivoExiste = false;
 
+	while (!archivoExiste) {
+        cout << "Digite el nombre del archivo con el que quisiera guardarlo: ";
+        cin.ignore();
+        getline(cin, nombreArchivo);
 
-	nombreJSON = nombreArchivo + ".json";
+        nombreJSON = nombreArchivo + ".json";
+
+        ifstream archivo(nombreJSON.c_str());
+    
+        if (archivo) {
+            archivo.close();
+            cout << "El archivo '" << nombreArchivo << "' ya existe, ¿Desea reemplazarlo? (s/n): ";
+            char opcion;
+            cin >> opcion;
+            if (opcion == 's' || opcion == 'S') {// Reemplazar el archivo con el mismo nombre
+                remove(nombreJSON.c_str());
+                archivoExiste = true;
+            } else {
+                continue; //solicitar otro nombre de archivo
+            }
+        } else {
+            archivoExiste = true;
+        }
+    }
 
     ofstream archivo(nombreJSON.c_str()); // Escribir datos en un archivo en modo de escritura // c_str transforma el archivo al parametro que necsita la funcion oftream
 
@@ -550,4 +570,7 @@ void guardarMatriz(string **punteromatriz, int f, int c) {
 
     archivo.close(); // Cierra el archivo
     cout << "La matriz se ha guardado como: " << nombreArchivo << ".json" << endl;
+    
+    
+    
 }
