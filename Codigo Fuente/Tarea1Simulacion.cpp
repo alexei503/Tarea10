@@ -478,7 +478,11 @@ void guardarMatriz(string **punteromatriz, int f, int c) {
         // Recorre las columnas de la matriz
         for (int j = 0; j < c; j++) {
         	archivo << '"' ;
-            archivo  <<(*(*(punteromatriz+i)+j)); // Escribe el valor del elemento 
+        	if( (*(*(punteromatriz+i)+j)) == "***"){
+        		archivo<< aux;
+			}else{
+            archivo  <<(*(*(punteromatriz+i)+j));
+			} // Escribe el valor del elemento 
 			archivo << '"' ;
             // Verifica si no es el último elemento de la fila
             if (j != c - 1) {
