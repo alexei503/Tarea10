@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cctype>
 #include <limits>
+#include <dirent.h>
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -15,6 +16,7 @@ void menuPrincipal();
 void menuEdicion();
 void disenarMatriz(string **, int, int);
 void createMatriz(int, int);
+void list_dir(string);
 void guardarMatriz(string** punteromatriz, int f, int c);
 void abrirjson(string** punteromatriz, int f, int c);
 
@@ -33,7 +35,7 @@ int main()
 {
 	
 	menuPrincipal(); //Llama a la funcion que crea el menu principal
-   json j;
+	
     return 0;
 }
 
@@ -103,6 +105,26 @@ void createMatriz(int f, int c){
 		punteromatriz[i] = new string[c];
 	}
 	
+	
+}
+
+void list_dir(string dir){
+	DIR *directorio;
+	struct dirent *elemento;
+	string elem;
+	
+	if(directorio = opendir(dir.c_str())){
+		while(elemento = readdir(directorio)){
+			
+			elem = elemento->d_name;
+			if(elem.find(".json") != string::npos){
+				cout<<"\t\t"<<elem<<endl;
+			}
+		}
+		cout<<"\n";
+	}
+	
+	closedir(directorio);
 	
 }
 
@@ -201,6 +223,9 @@ void abrirjson(string** punteromatriz, int f, int c){
 		cout<<"\t\t+-------------------------------------------------------+"<<endl;
 		cout<<"\t\t\t    Ingrese el nombre del archivo JSON: "<<endl;
 		cout<<"\t\t+-------------------------------------------------------+"<<endl;
+		
+		list_dir("./"); //Llama a la funcion para abrir el directorio
+		
 		cout<<"\t\tNombre: " ;
 		cin.ignore();
 		getline(cin, nombreArchivo);
