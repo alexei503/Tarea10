@@ -204,19 +204,18 @@ void abrirjson(string** punteromatriz, int f, int c){
 		cout<<"\t\tNombre: " ;
 		cin.ignore();
 		getline(cin, nombreArchivo);
-        
 		nombreArchivo += ".json";
-        ifstream jsonFile(nombreArchivo);
-        if (!jsonFile.is_open()) {
+        ifstream jsonFile(nombreArchivo); //Se habre el archivo.json
+        if (!jsonFile.is_open()) {	//se valida si el archivo se pudo habrir
         	
             cout << "\t\tEl archivo "<< nombreArchivo <<" no existe."<< endl;
             system("pause");
             system("cls");
         } 
 		else {
-        	ifstream jsonFile(nombreArchivo);
-			json root;
-  			jsonFile >> root;
+        	ifstream jsonFile(nombreArchivo); //habre el archivo.json
+			json root;	// se declara archivo json almazenar y manipular el .json
+  			jsonFile >> root; //para leer el flujo del .json
 
   			if (root["matriz"].is_array()) { // verifica que el "matriz" sea un arreglo
   		  int x=0;	//contador columna
@@ -236,35 +235,6 @@ void abrirjson(string** punteromatriz, int f, int c){
 			}
         
     }
-
-/*	ifstream jsonFile("archiv.json");
-
-
-	if (!jsonFile.is_open()) {
-    cout<< "Error al abrir el archivo JSON" <<endl;
-
-  }else{
-  	
-  	json root;
-  	jsonFile >> root;
-  if (root["matriz"].is_array()) { // verifica que el "matriz" sea un arreglo
-    int x=0;	//contador columna
-    for (const auto& fila : root["matriz"]) { // recorre cada columna 
-      int y=0;	//contador de filas
-      if (fila.is_array()) { //verifica que la fila sea un arreglo
-        for (const auto& elemento : fila) { //Reccore cada la fila
-          *(*(punteromatriz+x)+y) = elemento; //Se añade el elemento a la matris en la cordernadas
-          y+=1;
-        }
-      }
-		x+=1;
-    }
-  }
-  aux = *(*(punteromatriz+1)+1); // se igual puntero aux para no perder el dato anterior
-	menuEdicion();
-}
-
-}*/
 
 void disenarMatriz(string **punteromatriz, int f, int c){
 	
