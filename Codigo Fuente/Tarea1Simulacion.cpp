@@ -202,7 +202,8 @@ void abrirjson(string** punteromatriz, int f, int c){
 		cout<<"\t\t\t    Ingrese el nombre del archivo JSON: "<<endl;
 		cout<<"\t\t+-------------------------------------------------------+"<<endl;
 		cout<<"\t\tNombre: " ;
-		cin >> nombreArchivo;
+		cin.ignore();
+		getline(cin, nombreArchivo);
         
 		nombreArchivo += ".json";
         ifstream jsonFile(nombreArchivo);
@@ -509,7 +510,9 @@ void guardarMatriz(string **punteromatriz, int f, int c) {
     string nombreJSON;
     
     cout << "Digite el nombre del archivo con el que quisiera guardarlo: ";
-    cin >> nombreArchivo;
+    cin.ignore();
+    getline(cin, nombreArchivo);
+
 
 	nombreJSON = nombreArchivo + ".json";
 
